@@ -1,0 +1,103 @@
+=== job metadata ===
+date=2026-11-18T14:08:50+01:00
+host=haskell
+slurm_job_id=32283
+slurm_job_name=nbody-serial
+slurm_partition=cpu
+slurm_nodelist=haskell
+slurm_ntasks=1
+slurm_cpus_per_task=1
+omp_num_threads=unset
+omp_proc_bind=unset
+omp_places=unset
+git_head=6a5502d0cc2768529a41905ab2cdac17c1d8ee74
+git_worktree=clean
+cc=cc (GCC) 12.3.0
+--- modules
+
+Currently Loaded Modules:
+  1) GCCcore/12.3.0
+  2) GCC/12.3.0
+  3) numactl/2.0.16-GCCcore-12.3.0
+  4) libxml2/2.11.4-GCCcore-12.3.0
+  5) libpciaccess/0.17-GCCcore-12.3.0
+  6) hwloc/2.9.1-GCCcore-12.3.0
+  7) OpenSSL/1.1
+  8) libevent/2.1.12-GCCcore-12.3.0
+  9) UCX/1.14.1-GCCcore-12.3.0
+ 10) libfabric/1.18.0-GCCcore-12.3.0
+ 11) PMIx/4.2.4-GCCcore-12.3.0
+ 12) UCC/1.2.0-GCCcore-12.3.0
+ 13) OpenBLAS/0.3.23-GCC-12.3.0
+ 14) FlexiBLAS/3.3.1-GCC-12.3.0
+ 15) FFTW/3.3.10-GCC-12.3.0
+ 16) gfbf/2023a
+ 17) Tcl/8.6.13-GCCcore-12.3.0
+ 18) SQLite/3.42.0-GCCcore-12.3.0
+ 19) libffi/3.4.4-GCCcore-12.3.0
+ 20) Python/3.11.3-GCCcore-12.3.0
+ 21) cffi/1.15.1-GCCcore-12.3.0
+ 22) cryptography/41.0.1-GCCcore-12.3.0
+ 23) virtualenv/20.23.1-GCCcore-12.3.0
+ 24) Python-bundle-PyPI/2023.06-GCCcore-12.3.0
+ 25) pybind11/2.11.1-GCCcore-12.3.0
+ 26) SciPy-bundle/2023.07-gfbf-2023a
+ 27) libpng/1.6.39-GCCcore-12.3.0
+ 28) Brotli/1.0.9-GCCcore-12.3.0
+ 29) freetype/2.13.0-GCCcore-12.3.0
+ 30) expat/2.5.0-GCCcore-12.3.0
+ 31) fontconfig/2.14.2-GCCcore-12.3.0
+ 32) xorg-macros/1.20.0-GCCcore-12.3.0
+ 33) X11/20230603-GCCcore-12.3.0
+ 34) Tk/8.6.13-GCCcore-12.3.0
+ 35) Tkinter/3.11.3-GCCcore-12.3.0
+ 36) NASM/2.16.01-GCCcore-12.3.0
+ 37) libjpeg-turbo/2.1.5.1-GCCcore-12.3.0
+ 38) jbigkit/2.1-GCCcore-12.3.0
+ 39) gzip/1.12-GCCcore-12.3.0
+ 40) lz4/1.9.4-GCCcore-12.3.0
+ 41) zstd/1.5.5-GCCcore-12.3.0
+ 42) libdeflate/1.18-GCCcore-12.3.0
+ 43) LibTIFF/4.5.0-GCCcore-12.3.0
+ 44) giflib/5.2.1-GCCcore-12.3.0
+ 45) libwebp/1.3.1-GCCcore-12.3.0
+ 46) OpenJPEG/2.5.0-GCCcore-12.3.0
+ 47) LittleCMS/2.15-GCCcore-12.3.0
+ 48) Pillow/10.0.0-GCCcore-12.3.0
+ 49) Qhull/2020.2-GCCcore-12.3.0
+ 50) Ninja/1.11.1-GCCcore-12.3.0
+ 51) Meson/1.1.1-GCCcore-12.3.0
+ 52) meson-python/0.13.2-GCCcore-12.3.0
+ 53) matplotlib/3.7.2-gfbf-2023a
+ 54) OpenMPI/4.1.5-GCC-12.3.0
+
+ 
+
+--- cpu
+CPU(s):                                  512
+Model name:                              AMD EPYC 9755 128-Core Processor
+Thread(s) per core:                      2
+Core(s) per socket:                      128
+Socket(s):                               2
+CPU(s) scaling MHz:                      59%
+NUMA node(s):                            2
+--- gpu
+No devices were found
+=== end metadata ===
+command=./build/nbody_serial --n 1000 --steps 100 --dt 0.001 --eps 0.01 --seed 42
+=== check run
+backend=serial n=1000 steps=100 G=1 dt=0.001 epsilon=0.01 seed=42 mpi_ranks=1 omp_threads=1 nodes=1 gpu_model="none" host=haskell slurm_job_id=32283 git_commit=6a5502d0cc27 compiler=cc compiler_version="12.3.0" build_flags="-std=c11 -O2 -Wall -Wextra -Wpedantic -Wshadow -Wstrict-prototypes -Werror" elapsed_seconds=0.309403489 loop_seconds=0.306345298 seconds_per_step=0.003063453 interactions_per_second=3.261026e+08 force_seconds=0.309132583 communication_seconds=0.000000000 integration_seconds=0.000261074 initial_energy=-0.46604099240730257 final_energy=-0.46604098689396517 energy_change=5.5133373977334088e-09 relative_energy_change=-1.1830155474638926e-08 initial_momentum_x=0 initial_momentum_y=0 initial_momentum_z=0 momentum_x=-2.1895801686523664e-19 momentum_y=8.6736173798840355e-19 momentum_z=1.2400562347802957e-18
+=== timed run rep=1
+backend=serial n=1000 steps=100 G=1 dt=0.001 epsilon=0.01 seed=42 mpi_ranks=1 omp_threads=1 nodes=1 gpu_model="none" host=haskell slurm_job_id=32283 git_commit=6a5502d0cc27 compiler=cc compiler_version="12.3.0" build_flags="-std=c11 -O2 -Wall -Wextra -Wpedantic -Wshadow -Wstrict-prototypes -Werror" elapsed_seconds=0.309349530 loop_seconds=0.306288695 seconds_per_step=0.003062887 interactions_per_second=3.261629e+08 force_seconds=0.309079334 communication_seconds=0.000000000 integration_seconds=0.000260846
+=== timed run rep=2
+backend=serial n=1000 steps=100 G=1 dt=0.001 epsilon=0.01 seed=42 mpi_ranks=1 omp_threads=1 nodes=1 gpu_model="none" host=haskell slurm_job_id=32283 git_commit=6a5502d0cc27 compiler=cc compiler_version="12.3.0" build_flags="-std=c11 -O2 -Wall -Wextra -Wpedantic -Wshadow -Wstrict-prototypes -Werror" elapsed_seconds=0.309400785 loop_seconds=0.306337116 seconds_per_step=0.003063371 interactions_per_second=3.261113e+08 force_seconds=0.309129712 communication_seconds=0.000000000 integration_seconds=0.000261324
+=== timed run rep=3
+backend=serial n=1000 steps=100 G=1 dt=0.001 epsilon=0.01 seed=42 mpi_ranks=1 omp_threads=1 nodes=1 gpu_model="none" host=haskell slurm_job_id=32283 git_commit=6a5502d0cc27 compiler=cc compiler_version="12.3.0" build_flags="-std=c11 -O2 -Wall -Wextra -Wpedantic -Wshadow -Wstrict-prototypes -Werror" elapsed_seconds=0.309379042 loop_seconds=0.306320962 seconds_per_step=0.003063210 interactions_per_second=3.261285e+08 force_seconds=0.309109327 communication_seconds=0.000000000 integration_seconds=0.000260497
+JobID           JobName    Elapsed   TotalCPU     MaxRSS        NodeList      State 
+------------ ---------- ---------- ---------- ---------- --------------- ---------- 
+32283        nbody-ser+   00:00:14  00:01.252                    haskell    RUNNING 
+32283.batch       batch   00:00:14   00:00:00                    haskell    RUNNING 
+32283.0      nbody_ser+   00:00:01  00:00.315      9280K         haskell  COMPLETED 
+32283.1      nbody_ser+   00:00:00  00:00.312      8772K         haskell  COMPLETED 
+32283.2      nbody_ser+   00:00:00  00:00.312      8744K         haskell  COMPLETED 
+32283.3      nbody_ser+   00:00:01  00:00.312      9096K         haskell  COMPLETED 

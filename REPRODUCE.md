@@ -20,8 +20,9 @@ allocation through `scripts/job_metadata.sh`.
 ## Build and test
 
 ```sh
-git clone <repository-url> && cd <repository>
-git checkout <commit-or-tag>
+git clone https://github.com/Thecoolss/N_Body_HPC_Project.git
+cd N_Body_HPC_Project
+git checkout <commit-or-tag>    # the reproducibility check below used 6a5502d
 . env/modules.sh
 make clean
 make            # nbody_serial, nbody_openmp, nbody_hybrid
@@ -315,3 +316,36 @@ Run the OpenACC commands in their own login shell. `module purge` does not
 undo nvhpc's `PATH` change, so `. env/modules.sh` afterwards in the same shell
 links with `/usr/bin/ld` and the hybrid build fails with `undefined reference
 to hwloc_...` (`env/modules.sh` warns about this).
+
+## Reproducibility check (18 Nov 2026)
+
+A fresh clone of `main` at `6a5502d` into an empty folder on `rust`, following
+only this file:
+
+1. **Build and test.** `. env/modules.sh && make && make test` built all four
+   CPU binaries (serial, OpenMP, SIMD, hybrid) with `-Werror`; every test
+   passed.
+2. **Regenerate results from the committed logs.** Every command in this file
+   reproduced the committed CSVs and summaries; figures 1, 2, 3 and 5 came out
+   byte-identical with `matplotlib/3.7.2-gfbf-2023a`. Two differences, neither
+   in the data: `results/serial_summary.md` predated the nodes column (now
+   regenerated), and `results/e6_crossover.png` differs in bytes only (its CSV
+   is identical).
+3. **Rerun one experiment of each kind** through Slurm, from the same clone:
+
+| Rerun | Repeats | Published | Rerun | Difference |
+|---|---|---:|---:|---:|
+| Serial N = 1,000 (job 32283) | 28010 | 0.003075 s/step | 0.003063 s/step | −0.4% |
+| OpenMP 1 thread, N = 20,000 (32284) | E2, 28604 | 1.2150 s/step | 1.2223 s/step | +0.6% |
+| OpenMP 32 threads (32284) | E2, 28604 | 0.03888 s/step | 0.03881 s/step | −0.2% |
+| SIMD 1 thread (32285) | E8, 30410 | 0.6263 s/step | 0.6299 s/step | +0.6% |
+| SIMD 32 threads (32285) | E8, 30410 | 0.02003 s/step | 0.02005 s/step | +0.1% |
+| Hybrid validation, 1–16 ranks, 2 nodes (32286) | 28692 | all PASS | 27 PASS, 0 FAIL | same |
+| OpenACC kernel tests and comparison (32287) | 28623 | all PASS | all PASS | same |
+
+All timings are within 1% of the published values and every result line
+records `git_commit=...-g6a5502d0cc27`. The SIMD speedup reproduces (1.94× at
+1 thread, 1.94× at 32). The OpenACC rerun ran on `fortran` (RTX PRO 6000
+Blackwell, cc120) while the original ran on `haskell` (Ada, cc89), so both GPU
+targets of the build are checked. Logs: `results/logs/*_3228[3-7].out`.
+
